@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: aerodyne-compressors
+    runtime: dotnet
+    plan: free
+    buildCommand: dotnet publish AerodyneCompressors.csproj -c Release -o out
+    startCommand: dotnet out/AerodyneCompressors.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:$PORT
+      - key: ConnectionStrings__ApplicationDbContextConnection
+        value: Data Source=/var/data/aerodyne.db
+      - key: SmtpSettings__Server
+        value: smtp.gmail.com
+      - key: SmtpSettings__Port
+        value: "587"
+      - key: SmtpSettings__SenderName
+        value: AERODYNE EQUIPMENTS
+      - key: SmtpSettings__SenderEmail
+        sync: false
+      - key: SmtpSettings__ReceiverEmail
+        sync: false
+      - key: SmtpSettings__Password
+        sync: false
